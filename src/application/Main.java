@@ -23,11 +23,11 @@ public class Main extends Application {
 	
 	public static void main(String[] args) {
 		Card card1 = new Card("heart", 3);
-		Card card2 = new Card("heart", 2);
-		Card card3 = new Card("heart", 1);
-		Card card4 = new Card("heart", 8);
-		Card card5 = new Card("heart", 9);
+		Card card2 = new Card("heart", 3);
+		Card card3 = new Card("heart", 3);
+		Card card4 = new Card("heart", 5);
+		Card card5 = new Card("heart", 5);
 		Hand hand = new Hand(card1, card2, card3, card4, card5);
-		hand.handDetermine();
+		System.out.println(hand.whatIsHand());
 	}
 }
