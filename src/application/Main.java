@@ -1,5 +1,7 @@
 package application;
 	
+import java.io.IOException;
+
 import javafx.application.Application;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
@@ -21,7 +23,7 @@ public class Main extends Application {
 		}
 	}
 	
-	public static void main(String[] args) {
+	public static void main(String[] args) throws IOException {
 		Card card1 = new Card("heart", 3);
 		Card card2 = new Card("heart", 3);
 		Card card3 = new Card("heart", 3);
@@ -29,5 +31,6 @@ public class Main extends Application {
 		Card card5 = new Card("heart", 5);
 		Hand hand = new Hand(card1, card2, card3, card4, card5);
 		System.out.println(hand.whatIsHand());
+		tableBuilder.createTable();
 	}
 }
