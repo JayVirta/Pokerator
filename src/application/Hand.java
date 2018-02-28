@@ -95,7 +95,6 @@ private int high = 0;
 		Collections.sort(sortedHand);
 		int[] values = new int[] {sortedHand.get(0).getValue(), sortedHand.get(1).getValue(), sortedHand.get(2).getValue(), sortedHand.get(3).getValue(),sortedHand.get(4).getValue()};
 		high = values[4];
-		royal = isRoyalFlush(values);
 		fullHouse = isFullHouse(values);
 		flush = isFlush();
 		straight = isStraight(values);
@@ -185,7 +184,7 @@ private int high = 0;
 			check = true;
 		return check;
 	}
-	private boolean isFlush()
+	public boolean isFlush()
 	{
 		boolean check = true;
 		String control = card1.getSuit();
@@ -208,7 +207,7 @@ private int high = 0;
 			check = true;
 		return check;
 	}
-	private boolean isStraightFlush(int[] values)
+	public boolean isStraightFlush()
 	{
 		boolean check = true;
 		String control = card1.getSuit();
@@ -221,16 +220,16 @@ private int high = 0;
 		if(!card5.getSuit().equals(control))
 			check = false;
 		if(check=true)
-			if(values[0] == values[1]-1
-			&& values[1] == values[2]-1
-			&& values[2] == values[3]-1
-			&& values[3] == values[4]-1)
+			if(card1.getValue() == card2.getValue()-1
+			&& card2.getValue() == card3.getValue()-1
+			&& card3.getValue() == card4.getValue()-1
+			&& card4.getValue() == card5.getValue()-1)
 				check = true;
 			else
 				check = false;
 		return check;
 	}
-	private boolean isRoyalFlush(int[] values)
+	public boolean isRoyalFlush()
 	{
 		boolean check = true;
 		String control = card1.getSuit();
@@ -243,11 +242,11 @@ private int high = 0;
 		if(!card5.getSuit().equals(control))
 			check = false;
 		if(check=true)
-		if(values[0] == 1 && 
-				values[1] == 10 &&
-				values[2] == 11 &&
-				values[3] == 12 &&
-				values[4] == 13)
+		if(card1.getValue() == 1 && 
+				card2.getValue() == 10 &&
+				card3.getValue() == 11 &&
+				card4.getValue() == 12 &&
+				card5.getValue() == 13)
 					check = true;
 		else
 			check = false;

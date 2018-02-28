@@ -10,7 +10,14 @@ int card2;
 int card3;
 int card4;
 int card5;
+Card fullCard1;
+Card fullCard2;
+Card fullCard3;
+Card fullCard4;
+Card fullCard5;
 int handValue = 0;
+int critId1= 0;
+int critId2= 0;
 boolean handDetermined = false;
 private boolean pairFound= false;
 private boolean twoPair= false;
@@ -19,16 +26,37 @@ private boolean fourOfKind= false;
 private boolean straight= false;
 private boolean flush= false;
 private boolean fullHouse= false;
+private boolean straightFlush= false;
 private boolean royal= false;
 private int high = 0;
+private byte suitId1 = 0;
+private byte suitId2 = 0;
+private byte suitId3 = 0;
+private byte suitId4 = 0;
+private byte suitId5 = 0;
 
 public simpleHand(Card card1, Card card2, Card card3,Card card4, Card card5)
 {
-	this.card1 = card1.simpleCard;
-	this.card2 = card2.simpleCard;
-	this.card3 = card3.simpleCard;
-	this.card4 = card4.simpleCard;
-	this.card5 = card5.simpleCard;
+	this.card1 = card1.simpleCard();
+	this.card2 = card2.simpleCard();
+	this.card3 = card3.simpleCard();
+	this.card4 = card4.simpleCard();
+	this.card5 = card5.simpleCard();
+	if(card1.getSuit().equals("HEARTS"))
+		suitId1= 3;
+	if(card2.getSuit().equals("HEARTS"))
+		suitId2= 3;
+	if(card3.getSuit().equals("HEARTS"))
+		suitId3= 3;
+	if(card4.getSuit().equals("HEARTS"))
+		suitId4= 3;
+	if(card5.getSuit().equals("HEARTS"))
+		suitId5= 3;
+	System.out.println(suitId1);
+	System.out.println(suitId2);
+	System.out.println(suitId3);
+	System.out.println(suitId4);
+	System.out.println(suitId5);
 }
 
 public void simpleSort()
@@ -93,8 +121,24 @@ public void handDetermine()
 	threeOfKind = isThreeOfKind();
 	twoPair = isTwoPair();
 	pairFound = isPair();
-	if(royal == true)
-		handValue = 900 + high;
+	System.out.println(card1);
+	System.out.println(card2);
+	System.out.println(card3);
+	System.out.println(card4);
+	System.out.println(card5);
+	if(royal == true) 
+	{
+		if(suitId1 == 1)
+			critId1=0x1;
+		if(suitId1 == 2)
+			critId1=0x2;
+		if(suitId1 == 3)
+			critId1=0x3;
+		if(suitId1 == 4)
+			critId1=0x4;
+		handValue = 0xA00 + critId1;
+		System.out.println(String.format("0x%03X", handValue));
+	}
 	if(straight == true && flush==true && handValue == 0)
 		handValue = 800 + high;
 	if(fourOfKind == true && handValue == 0)
@@ -112,10 +156,10 @@ public void handDetermine()
 	if(pairFound == true && handValue == 0)
 		handValue = 100 + high;
 	if(handValue == 0)
-		handValue = values[4];
+		handValue = card5;
 	handDetermined = true;
 }
-private boolean isPair(int[] values)
+private boolean isPair()
 {
 	boolean check = false;
 	if(card1%100 == card2%100)
@@ -128,7 +172,7 @@ private boolean isPair(int[] values)
 		check = true;
 	return check;
 }
-private boolean isTwoPair(int[] values)
+private boolean isTwoPair()
 {
 	boolean check = false;
 	if(card1%100 == card2%100 && card3%100 == card4%100)
@@ -139,7 +183,7 @@ private boolean isTwoPair(int[] values)
 		check = true;
 	return check;
 }
-private boolean isThreeOfKind(int[] values)
+private boolean isThreeOfKind()
 {
 	boolean check = false;
 	if(card2%100 == card1%100 && card1%100 == card3%100)
@@ -150,97 +194,69 @@ private boolean isThreeOfKind(int[] values)
 		check = true;
 	return check;
 }
-private boolean isFourOfKind(int[] values)
+private boolean isFourOfKind()
 {
 	boolean check = false;
-	if(values[0] == values[1] && values[0] == values[2] && values[0] == values[3])
+	if(card1%100 == card2%100 && card2%100 == card3%100 && card1%100 == card4%100)
 	{
 		check = true;
-		high = values[0];
+		high = card5;
 	}
-	if(values[1] == values[2] && values[1] == values[3] && values[1] == values[4])
+	if(card2%100 == card3%100 && card2%100 == card4%100 && card2%100 == card5%100)
 	{
 		check = true;
-		high = values[1];
+		high = card5;
 	}
 	return check;
 }
-private boolean isStraight(int[] values)
+private boolean isStraight()
 {
 	boolean check = false;
-	if(values[0] == values[1]-1
-			&& values[1] == values[2]-1
-			&& values[2] == values[3]-1
-			&& values[3] == values[4]-1)
+	if(card1 == card2-1
+	&& card2 == card3-1
+	&& card3 == card4-1
+	&& card4 == card5-1)
 		check = true;
 	return check;
 }
 private boolean isFlush()
 {
-	boolean check = true;
-	String control = card1.getSuit();
-	if(!card2.getSuit().equals(control))
-		check = false;
-	if(!card3.getSuit().equals(control))
-		check = false;
-	if(!card4.getSuit().equals(control))
-		check = false;
-	if(!card5.getSuit().equals(control))
-		check = false;
+	boolean check = false;
+	if(suitId1 == suitId2 && suitId1 == suitId3 && suitId1 == suitId4 && suitId1 == suitId5)
+		check = true;
 	return check;
 }
-private boolean isFullHouse(int[] values)
+private boolean isFullHouse()
 {
 	boolean check = false;
-	if(values[0] == values[1] && values[0] == values[2] && values[3] == values[4])
+	if(card1%100 == card2%100 && card1%100 == card3%100 && card5%100 == card4%100)
 		check = true;
-	if(values[1] == values[0] && values[2] == values[3] && values[2] == values[4])
+	if(card1%100 == card2%100 && card3%100 == card4%100 && card3%100 == card5%100)
 		check = true;
 	return check;
 }
-private boolean isStraightFlush(int[] values)
+private boolean isStraightFlush()
 {
-	boolean check = true;
-	String control = card1.getSuit();
-	if(!card2.getSuit().equals(control))
-		check = false;
-	if(!card3.getSuit().equals(control))
-		check = false;
-	if(!card4.getSuit().equals(control))
-		check = false;
-	if(!card5.getSuit().equals(control))
-		check = false;
-	if(check=true)
-		if(values[0] == values[1]-1
-		&& values[1] == values[2]-1
-		&& values[2] == values[3]-1
-		&& values[3] == values[4]-1)
-			check = true;
-		else
-			check = false;
+	boolean check = false;
+	if(suitId1 == suitId2 && suitId1 == suitId3 && suitId1 == suitId4 && suitId1 == suitId5)
+	if(card1 == card2-1
+	&& card2 == card3-1
+	&& card3 == card4-1
+	&& card4 == card5-1
+	)
+		check = true;
 	return check;
 }
-private boolean isRoyalFlush(int[] values)
+private boolean isRoyalFlush()
 {
-	boolean check = true;
-	String control = card1.getSuit();
-	if(!card2.getSuit().equals(control))
-		check = false;
-	if(!card3.getSuit().equals(control))
-		check = false;
-	if(!card4.getSuit().equals(control))
-		check = false;
-	if(!card5.getSuit().equals(control))
-		check = false;
-	if(check=true)
-	if(values[0] == 1 && 
-			values[1] == 10 &&
-			values[2] == 11 &&
-			values[3] == 12 &&
-			values[4] == 13)
-				check = true;
-	else
-		check = false;
+	boolean check = false;
+	if(suitId1 == suitId2 && suitId1 == suitId3 && suitId1 == suitId4 && suitId1 == suitId5)
+	if(card1%100 == 1
+	&& card2%100 == 10
+	&& card3%100 == 11
+	&& card4%100 == 12
+	&& card5%100 == 13)
+		check = true;
 	return check;
 }
 public String whatIsHand()
@@ -277,4 +293,4 @@ public int getHandValue()
 }
 
 
-}
+

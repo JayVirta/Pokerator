@@ -31,9 +31,11 @@ public void setSuit(String suit)
 }
 public int simpleCard()
 {
+	System.out.println(suit);
 	switch(suit){
 		case "HEARTS":
 			simpleCard += 100;
+			System.out.println("wut");
 			break;
 		case "DIAMONDS":
 			simpleCard += 200;
