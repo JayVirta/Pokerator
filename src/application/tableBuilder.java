@@ -11,7 +11,9 @@ public class tableBuilder
 		ArrayList<Integer> tableBuild = new ArrayList<Integer>();
 		ArrayList<String> handTable = new ArrayList<String>();
 		int handValue = 0;
-		
+		int[][] appearances = new int[92][2];
+		for(int i = 0; i< 92 ; i++)
+			appearances[i][0] =0;
 		int value1 = 0;
 		int value2 = 0;
 		int value3 = 0;
@@ -93,14 +95,32 @@ public class tableBuilder
 							handValue = hand.getHandValue();
 							if(hand.isValid() == true)
 							{
+								boolean used = false;
 								for(int z = 0; z< tableBuild.size(); z++)
 								{
 									if(tableBuild.get(z)==hand.getHandValue())
 										contains = true;
+									for(int x = 0; x< 92 && used == false ; x++)
+									{
+										if (contains == true && used == false)
+										{
+											if (appearances[x][0] == 0)
+											{
+												appearances[x][0] = hand.getHandValue();
+												appearances[x][1] = 1;
+												used = true;
+											}
+											else if (appearances [x][0] == hand.getHandValue()) 
+											{
+												appearances[x][1]++;
+											}
+										}
+									}
 								}
 								if (contains == false)
 								{
 									tableBuild.add(hand.getHandValue());
+									System.out.println(tableBuild.size());
 								}
 								contains = false;
 								handValue = 0;
@@ -111,12 +131,11 @@ public class tableBuilder
 				}
 			}
 			System.out.println(i + " Out of 52");
-			System.out.println(tableBuild.size());
 		}
 		Collections.sort(tableBuild);
 		for(int i = 0; i< tableBuild.size(); i++)
 		{
-			fileStream.println(tableBuild.get(i));
+			fileStream.println(tableBuild.get(i) + " " +appearances[i][1]);
 			System.out.println(i + " Out of 52");
 		}
 		fileStream.close();
