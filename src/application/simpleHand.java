@@ -399,26 +399,26 @@ public String whatIsHand()
 {
 	if (handDetermined == false)
 		handDetermine();
-	if(handValue > 900)
+	if(handValue > 0xA00)
 		return "This Hand is a Royal Flush!";
-	if(handValue > 800)
+	if(handValue > 0x900)
 		return "This hand is a Straight Flush with a high of " + high;
-	if(handValue > 700)
-		return "This hand is a Four of Kind of " + high;
-	if(handValue > 600)
+	if(handValue > 0x800)
+		return "This hand is a Four of Kind of " + critId1/10;
+	if(handValue > 0x700)
 		return "This hand is a Full House!";
-	if(handValue > 500)
+	if(handValue > 0x600)
 		return "This hand is a Flush!";
-	if(handValue > 400)
+	if(handValue > 0x500)
 		return "This hand is a Straight!";
-	if(handValue > 300)
+	if(handValue > 0x400)
 		return "This hand is a Three of Kind!";
-	if(handValue > 200)
+	if(handValue > 0x300)
 		return "This hand is a Two Pair!";
-	if(handValue > 100)
+	if(handValue > 0x200)
 		return "This hand is a Pair!";
 	else
-		return "This hand is a " + high + " high!"; 
+		return "This hand is a " + (high-100) + " high!"; 
 }
 public int getHandValue()
 {

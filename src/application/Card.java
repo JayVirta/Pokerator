@@ -37,13 +37,13 @@ public int simpleCard()
 			simpleCard += 100;
 			break;
 		case "DIAMONDS":
-			simpleCard += 200;
+			simpleCard += 100;
 			break;
 		case "CLUBS":
-			simpleCard += 300;
+			simpleCard += 100;
 			break;
 		case "SPADES":
-			simpleCard += 400;
+			simpleCard += 100;
 			break;}
 	simpleCard = simpleCard + value;
 	return simpleCard;

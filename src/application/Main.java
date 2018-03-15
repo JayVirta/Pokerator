@@ -24,12 +24,13 @@ public class Main extends Application {
 	}
 	
 	public static void main(String[] args) throws IOException {
-		Card card1 = new Card("hearts", 1);
-		Card card2 = new Card("hearts", 10);
-		Card card3 = new Card("hearts", 11);
-		Card card4 = new Card("hearts", 12);
-		Card card5 = new Card("hearts", 13);
+		Card card1 = new Card("diamonds", 13);
+		Card card2 = new Card("hearts", 13);
+		Card card3 = new Card("hearts", 13);
+		Card card4 = new Card("hearts", 13);
+		Card card5 = new Card("hearts", 5);
 		simpleHand hand = new simpleHand(card1, card2, card3, card4, card5);
 		hand.handDetermine();
+		System.out.print(hand.whatIsHand());
 	}
 }
