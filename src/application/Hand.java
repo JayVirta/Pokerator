@@ -1,6 +1,6 @@
 package application;
 import java.util.*;
-
+//DEPRECATED
 public class Hand
 {
 Card card1;

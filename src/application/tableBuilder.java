@@ -1,7 +1,7 @@
 package application;
 import java.io.*;
 import java.util.*;
-
+//DEPRECATED
 public class tableBuilder
 {
 	static File file = new File("output.txt");

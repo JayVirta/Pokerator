@@ -42,6 +42,26 @@ public simpleHand(Card card1, Card card2, Card card3,Card card4, Card card5)
 	this.card3 = card3.simpleCard();
 	this.card4 = card4.simpleCard();
 	this.card5 = card5.simpleCard();
+	if(card1.getSuit().equals("CLUBS"))
+		suitId1= 1;
+	if(card2.getSuit().equals("CLUBS"))
+		suitId2= 1;
+	if(card3.getSuit().equals("CLUBS"))
+		suitId3= 1;
+	if(card4.getSuit().equals("CLUBS"))
+		suitId4= 1;
+	if(card5.getSuit().equals("CLUBS"))
+		suitId5= 1;
+	if(card1.getSuit().equals("DIAMONDS"))
+		suitId1= 2;
+	if(card2.getSuit().equals("DIAMONDS"))
+		suitId2= 2;
+	if(card3.getSuit().equals("DIAMONDS"))
+		suitId3= 2;
+	if(card4.getSuit().equals("DIAMONDS"))
+		suitId4= 2;
+	if(card5.getSuit().equals("DIAMONDS"))
+		suitId5= 2;
 	if(card1.getSuit().equals("HEARTS"))
 		suitId1= 3;
 	if(card2.getSuit().equals("HEARTS"))
@@ -52,6 +72,16 @@ public simpleHand(Card card1, Card card2, Card card3,Card card4, Card card5)
 		suitId4= 3;
 	if(card5.getSuit().equals("HEARTS"))
 		suitId5= 3;
+	if(card1.getSuit().equals("SPADES"))
+		suitId1= 4;
+	if(card2.getSuit().equals("SPADES"))
+		suitId2= 4;
+	if(card3.getSuit().equals("SPADES"))
+		suitId3= 4;
+	if(card4.getSuit().equals("SPADES"))
+		suitId4= 4;
+	if(card5.getSuit().equals("SPADES"))
+		suitId5= 4;
 	System.out.println(suitId1);
 	System.out.println(suitId2);
 	System.out.println(suitId3);
@@ -114,10 +144,10 @@ public void handDetermine()
 	simpleSort();
 	high = card5;
 	royal = isRoyalFlush();
+	fourOfKind = isFourOfKind();
 	fullHouse = isFullHouse();
 	flush = isFlush();
 	straight = isStraight();
-	fourOfKind = isFourOfKind();
 	threeOfKind = isThreeOfKind();
 	twoPair = isTwoPair();
 	pairFound = isPair();
@@ -140,58 +170,146 @@ public void handDetermine()
 		System.out.println(String.format("0x%03X", handValue));
 	}
 	if(straight == true && flush==true && handValue == 0)
-		handValue = 800 + high;
+	{
+		critId1 = card5-100;
+		handValue = 0x900 + critId1;
+	}
 	if(fourOfKind == true && handValue == 0)
-		handValue = 700 + high;
+	{
+		handValue = 0x800 + critId1+critId2;
+	}
 	if(fullHouse == true && handValue == 0)
-		handValue = 600 + high;
+	{
+		handValue = 0x700 + critId1+critId2;
+	}
 	if(flush == true && handValue == 0)
-		handValue = 500 + high;
+	{
+		critId1 = (card5-100)*10;
+		critId2 = card4-100;
+		handValue = 0x600 + critId1+ critId2;
+	}
 	if(straight == true && handValue == 0)
-		handValue = 400 + high;
+	{
+		critId1 = card5-100;
+		handValue = 0x500 + critId1;
+	}
 	if(threeOfKind == true && handValue == 0)
-		handValue = 300 + high;
+	{
+		handValue = 0x400 + critId1 + critId2;
+	}
 	if(twoPair == true && handValue == 0)
-		handValue = 200 + high;
+	{
+		handValue = 0x300 + critId1 + critId2;
+	}
 	if(pairFound == true && handValue == 0)
-		handValue = 100 + high;
+	{
+		handValue = 0x200 + critId1;
+	}
 	if(handValue == 0)
-		handValue = card5;
+	{
+		critId1 = card5-100;
+		handValue = 0x100 + critId1;
+	}
 	handDetermined = true;
 }
 private boolean isPair()
 {
 	boolean check = false;
 	if(card1%100 == card2%100)
+	{
 		check = true;
+		if(critId1==0)
+		{
+			critId1= card1-100;
+		}
+	}
 	if(card2%100 == card3%100)
+	{
 		check = true;
+		if(critId1==0)
+		{
+			critId1= card2-100;
+		}
+	}
 	if(card3%100 == card4%100)
+	{
 		check = true;
+		if(critId1==0)
+		{
+			critId1= card3-100;
+		}
+	}
 	if(card4%100 == card5%100)
+	{
 		check = true;
+		if(critId1==0)
+		{
+			critId1= card4-100;
+		}
+	}
 	return check;
 }
 private boolean isTwoPair()
 {
 	boolean check = false;
 	if(card1%100 == card2%100 && card3%100 == card4%100)
+	{
 		check = true;
+		if(critId1==0)
+		{
+			critId1= card1-100;
+			critId2= card3-100;
+		}
+	}
 	if(card2%100 == card3%100 && card4%100 == card5%100)
+	{
 		check = true;
+		if(critId1==0)
+		{
+			critId1= card2-100;
+			critId2= card4-100;
+		}
+	}
 	if(card1%100 == card2%100 && card5%100 == card4%100)
+	{
 		check = true;
+		if(critId1==0)
+		{
+			critId1= card1-100;
+			critId2= card4-100;
+		}
+	}
 	return check;
 }
 private boolean isThreeOfKind()
 {
 	boolean check = false;
-	if(card2%100 == card1%100 && card1%100 == card3%100)
+	if(card2%100 == card1%100 && card1%100 == card3%100) {
 		check = true;
+	if(critId1==0)
+	{
+		critId1= (card1-100)*10;
+		critId2= card5-100;
+	}
+	}
 	if(card2%100 == card3%100 && card2%100 == card4%100)
+	{
 		check = true;
+		if(critId1==0)
+		{
+			critId1= (card2-100)*10;
+			critId2= card5-100;
+		}
+	}
 	if(card3%100 == card4%100 && card3%100 == card5%100)
+	{
 		check = true;
+		if(critId1==0)
+		{
+			critId1= (card3-100)*10;
+			critId2= card2-100;
+		}
+	}
 	return check;
 }
 private boolean isFourOfKind()
@@ -201,11 +319,15 @@ private boolean isFourOfKind()
 	{
 		check = true;
 		high = card5;
+		critId1= (card1-100)*10;
+		critId2= card5-100;
 	}
 	if(card2%100 == card3%100 && card2%100 == card4%100 && card2%100 == card5%100)
 	{
 		check = true;
 		high = card5;
+		critId1= (card5-100)*10;
+		critId2= card1-100;
 	}
 	return check;
 }
@@ -230,9 +352,23 @@ private boolean isFullHouse()
 {
 	boolean check = false;
 	if(card1%100 == card2%100 && card1%100 == card3%100 && card5%100 == card4%100)
+	{
 		check = true;
+		if(critId1==0)
+		{
+			critId1= (card1-100)*10;
+			critId2= card5-100;
+		}
+	}
 	if(card1%100 == card2%100 && card3%100 == card4%100 && card3%100 == card5%100)
+	{
 		check = true;
+		if(critId1==0)
+		{
+			critId1= (card1-100)*10;
+			critId2= card5-100;
+		}
+	}
 	return check;
 }
 private boolean isStraightFlush()

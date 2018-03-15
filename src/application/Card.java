@@ -35,7 +35,6 @@ public int simpleCard()
 	switch(suit){
 		case "HEARTS":
 			simpleCard += 100;
-			System.out.println("wut");
 			break;
 		case "DIAMONDS":
 			simpleCard += 200;
