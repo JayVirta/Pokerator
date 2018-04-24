@@ -33,8 +33,9 @@ public class Main extends Application {
 		Card card3 = new Card("DIAMONDS", 2);
 		Card card4 = new Card("CLUBS", 13);
 		Card card5 = new Card("DIAMONDS", 9);
-		Hand hand = new Hand(card1, card2, card3, card4, card5);
+		simpleHand hand = new simpleHand(card1, card2, card3, card4, card5);
 		System.out.println(hand.whatIsHand());
+		System.out.println(hand.getSimpleChance());
 		launch(args);
 	}
 }

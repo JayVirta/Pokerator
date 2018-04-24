@@ -458,6 +458,7 @@ public class ObjRecognitionController
 		Card card5 = new Card(suitFive, Integer.parseInt(valueFive));
 		simpleHand hand = new simpleHand(card1, card2, card3, card4, card5);
 		System.out.println(hand.whatIsHand());
+		System.out.println(hand.getSimpleChance());
 	}
 	/**
 	 * Update the {@link ImageView} in the JavaFX main thread

@@ -34,6 +34,7 @@ private byte suitId2 = 0;
 private byte suitId3 = 0;
 private byte suitId4 = 0;
 private byte suitId5 = 0;
+private double simpleChance;
 
 public simpleHand(Card card1, Card card2, Card card3,Card card4, Card card5)
 {
@@ -173,42 +174,52 @@ public void handDetermine()
 	{
 		critId1 = card5-100;
 		handValue = 0x900 + critId1;
+		simpleChance = ((2598960-4)/2598960.0)*100;
 	}
 	if(fourOfKind == true && handValue == 0)
 	{
 		handValue = 0x800 + critId1+critId2;
+		simpleChance = ((2598960-628)/2598960.0)*100;
 	}
 	if(fullHouse == true && handValue == 0)
 	{
 		handValue = 0x700 + critId1+critId2;
+		simpleChance = ((2598960-4372)/2598960.0)*100;
 	}
 	if(flush == true && handValue == 0)
 	{
 		critId1 = (card5-100)*10;
 		critId2 = card4-100;
 		handValue = 0x600 + critId1+ critId2;
+		simpleChance = ((2598960-9480)/2598960.0)*100;
 	}
 	if(straight == true && handValue == 0)
 	{
 		critId1 = card5-100;
 		handValue = 0x500 + critId1;
+		simpleChance = ((2598960-19680)/2598960.0)*100;
 	}
 	if(threeOfKind == true && handValue == 0)
 	{
 		handValue = 0x400 + critId1 + critId2;
+		simpleChance = ((2598960-74592)/2598960.0)*100;
 	}
 	if(twoPair == true && handValue == 0)
 	{
 		handValue = 0x300 + critId1 + critId2;
+		simpleChance = ((2598960-198144)/2598960.0)*100;
 	}
 	if(pairFound == true && handValue == 0)
 	{
 		handValue = 0x200 + critId1;
+		simpleChance = ((2598960-1296384)/2598960.0)*100;
+		System.out.println(simpleChance);
 	}
 	if(handValue == 0)
 	{
 		critId1 = card5-100;
 		handValue = 0x100 + critId1;
+		simpleChance = 0;
 	}
 	handDetermined = true;
 }
@@ -425,6 +436,12 @@ public int getHandValue()
 	if (handDetermined == false)
 		handDetermine();
 	return handValue;
+}
+public String getSimpleChance()
+{
+	simpleChance = Math.round(simpleChance*100.0);
+	simpleChance = simpleChance/100.0;
+	return "By hand type alone this hand beats "+ simpleChance + "% of hands";
 }
 }
 
