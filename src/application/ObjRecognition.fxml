@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.Slider?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.ObjRecognitionController">
+	<right>
+		<VBox alignment="CENTER" spacing="10">
+			<padding>
+				<Insets left="10" right="10" />
+			</padding>
+			<Label text="Hue Start" />
+			<Slider fx:id="hueStart" blockIncrement="1" max="180" min="0" value="0" />
+			<Label text="Hue Stop" />
+			<Slider fx:id="hueStop" blockIncrement="1" max="180" min="0" value="50" />
+			<Label text="Saturation Start" />
+			<Slider fx:id="saturationStart" blockIncrement="1" max="255" min="0" value="0" />
+			<Label text="Saturation Stop" />
+			<Slider fx:id="saturationStop" blockIncrement="1" max="255" min="0" value="200" />
+			<Label text="Value Start" />
+			<Slider fx:id="valueStart" blockIncrement="1" max="255" min="0" value="50" />
+			<Label text="Value Stop" />
+			<Slider fx:id="valueStop" blockIncrement="1" max="255" min="0" value="255" />
+		</VBox>
+	</right>
+	<center>
+		<HBox alignment="CENTER" spacing="5">
+			<padding>
+				<Insets left="10" right="10" />
+			</padding>
+			<ImageView fx:id="originalFrame" />
+			<VBox alignment="CENTER" spacing="5">
+				<ImageView fx:id="maskImage" />
+				<ImageView fx:id="morphImage" />
+            <ImageView fx:id="ogOutput" pickOnBounds="true" preserveRatio="true" />
+			</VBox>
+		</HBox>
+	</center>
+	<bottom>
+		<VBox alignment="CENTER" spacing="15">
+			<padding>
+				<Insets bottom="25" left="25" right="25" top="25" />
+			</padding>
+			<Button fx:id="cameraButton" alignment="center" onAction="#startCamera" text="Start camera" />
+			<Separator />
+			<Label fx:id="hsvCurrentValues" />
+         <HBox prefHeight="100.0" prefWidth="200.0">
+            <children>
+               <ImageView fx:id="card1View" pickOnBounds="true" preserveRatio="true" />
+               <ImageView fx:id="card2View" pickOnBounds="true" preserveRatio="true" />
+               <ImageView fx:id="card3View" pickOnBounds="true" preserveRatio="true" />
+               <ImageView fx:id="card4View" pickOnBounds="true" preserveRatio="true" />
+               <ImageView fx:id="card5View" pickOnBounds="true" preserveRatio="true" />
+            </children>
+         </HBox>
+         <HBox prefHeight="0.0" prefWidth="550.0">
+            <children>
+               <ComboBox fx:id="suit1" prefWidth="150.0" promptText="Suit" />
+               <ComboBox fx:id="suit2" prefWidth="150.0" promptText="Suit" />
+               <ComboBox fx:id="suit3" prefWidth="150.0" promptText="Suit" />
+               <ComboBox fx:id="suit4" prefWidth="150.0" promptText="Suit" />
+               <ComboBox fx:id="suit5" prefWidth="150.0" promptText="Suit" />
+            </children>
+         </HBox>
+         <HBox prefHeight="18.0" prefWidth="550.0">
+            <children>
+               <ComboBox fx:id="value1" prefWidth="150.0" promptText="Value" />
+               <ComboBox fx:id="value2" prefWidth="150.0" promptText="Value" />
+               <ComboBox fx:id="value3" prefWidth="150.0" promptText="Value" />
+               <ComboBox fx:id="value4" prefWidth="150.0" promptText="Value" />
+               <ComboBox fx:id="value5" prefWidth="150.0" promptText="Value" />
+            </children>
+         </HBox>
+         <Button fx:id="submitBtn" mnemonicParsing="false" onAction="#submitHand" text="Submit" />
+		</VBox>
+	</bottom>
+</BorderPane>

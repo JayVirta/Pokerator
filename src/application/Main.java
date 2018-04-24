@@ -16,7 +16,7 @@ public class Main extends Application {
 	@Override
 	public void start(Stage primaryStage) {
 		try {
-			AnchorPane root = (AnchorPane)FXMLLoader.load(getClass().getResource("CameraView.fxml"));
+			BorderPane root = FXMLLoader.load(getClass().getResource("ObjRecognition.fxml"));
 			Scene scene = new Scene(root,800,400);
 			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 			primaryStage.setScene(scene);
@@ -27,6 +27,14 @@ public class Main extends Application {
 	}
 	
 	public static void main(String[] args) throws IOException {
+		System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
+		Card card1 = new Card("CLUBS", 9);
+		Card card2 = new Card("SPADES", 1);
+		Card card3 = new Card("DIAMONDS", 2);
+		Card card4 = new Card("CLUBS", 13);
+		Card card5 = new Card("DIAMONDS", 9);
+		Hand hand = new Hand(card1, card2, card3, card4, card5);
+		System.out.println(hand.whatIsHand());
 		launch(args);
 	}
 }

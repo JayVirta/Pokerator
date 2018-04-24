@@ -1,5 +1,5 @@
 package application;
-
+//DEPRECATED
 import java.awt.image.BufferedImage;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
